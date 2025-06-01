@@ -44,7 +44,7 @@ class BackgroundService {
 
       // Check if we have a valid API key before processing
       if (!this.genAI || !this.model) {
-        console.warn('Cannot process content: API key not set. Please set your Google API key in the extension options.');
+        console.warn('Cannot process content: API key not set. Please set GOOGLE_API_KEY in your .env file.');
         return;
       }
 
@@ -112,14 +112,11 @@ class BackgroundService {
 
   private async loadApiKey(): Promise<void> {
     try {
-      const result = await chrome.storage.sync.get('settings');
-      const settings = result.settings || {};
-      const apiKey = settings.apiKey;
+      const apiKey = process.env.GOOGLE_API_KEY;
 
       if (!apiKey) {
-        console.warn('No API key found in settings. Please set your Google API key in the extension options.');
-        // Do not initialize genAI or model if API key is missing
-        this.genAI = undefined as any; // Explicitly set to undefined
+        console.warn('No API key found in environment variables. Please set GOOGLE_API_KEY in your .env file.');
+        this.genAI = undefined as any;
         this.model = undefined;
         return;
       }
@@ -129,7 +126,7 @@ class BackgroundService {
       this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     } catch (error) {
       console.error('Error loading API key:', error);
-      this.genAI = undefined as any; // Explicitly set to undefined on error
+      this.genAI = undefined as any;
       this.model = undefined;
     }
   }

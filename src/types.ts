@@ -1,5 +1,4 @@
 export interface Settings {
-  apiKey: string;
   autoTrack: boolean;
   summaryLength: 'short' | 'medium' | 'long';
   theme: 'light' | 'dark';

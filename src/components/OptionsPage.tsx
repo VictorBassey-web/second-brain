@@ -3,7 +3,6 @@ import { Settings } from '../types';
 
 const OptionsPage: React.FC = () => {
   const [settings, setSettings] = useState<Settings>({
-    apiKey: '',
     autoTrack: true,
     summaryLength: 'medium',
     theme: 'light'
@@ -37,24 +36,6 @@ const OptionsPage: React.FC = () => {
       <h1 className="text-2xl font-bold text-gray-900 mb-6">NeuroPilot Settings</h1>
       
       <div className="space-y-6">
-        {/* API Key */}
-        <div>
-          <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700">
-            Google API Key
-          </label>
-          <input
-            type="password"
-            id="apiKey"
-            value={settings.apiKey}
-            onChange={(e) => setSettings({ ...settings, apiKey: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="Enter your Google API key"
-          />
-          <p className="mt-1 text-sm text-gray-500">
-            Required for AI features. Get your key from the Google Cloud Console.
-          </p>
-        </div>
-
         {/* Auto Track */}
         <div>
           <label className="flex items-center">
